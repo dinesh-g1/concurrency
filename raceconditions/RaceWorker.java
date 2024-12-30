@@ -1,5 +1,3 @@
-import java.util.concurrent.locks.ReentrantLock;
-
 public class RaceWorker implements Runnable {
     private NumberWrapper numberWrapper;
     public RaceWorker(NumberWrapper numberWrapper) {
