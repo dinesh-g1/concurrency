@@ -12,7 +12,7 @@ public class Worker implements Runnable{
     @Override
     public void run() {
         while (compare()) {}
-        System.out.println(val);
+        System.out.print(val + " ");
         synchronized (lock) {
             SortedThreadsDriver.curr++;
         }
