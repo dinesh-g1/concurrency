@@ -11,17 +11,17 @@ public class Worker implements Runnable{
 
     @Override
     public void run() {
-        while (compare()) {}
-        System.out.print(val + " ");
         synchronized (lock) {
+            while (val != SortedThreadsDriver.curr) {
+                try {
+                    lock.wait();
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            System.out.println(val);
             SortedThreadsDriver.curr++;
+            lock.notifyAll();
         }
-    }
-    public boolean compare() {
-        boolean result = false;
-        synchronized (lock) {
-            result = val > SortedThreadsDriver.curr;
-        }
-        return result;
     }
 }

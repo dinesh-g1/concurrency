@@ -31,7 +31,7 @@ public class Customer implements Runnable {
 
     private boolean isReady() {
         synchronized (lock) {
-            return  tickingBoard.nextAppointment(customerId);
+            return tickingBoard.nextAppointment(customerId);
         }
     }
 }
