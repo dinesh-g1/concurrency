@@ -3,9 +3,9 @@ package producerconsumer;
 import java.util.ArrayDeque;
 
 public class Consumer implements Runnable{
-    private final ArrayDeque<Integer> queue;
+    private final ArrayQueue queue;
 
-    public Consumer(ArrayDeque<Integer> queue) {
+    public Consumer(ArrayQueue queue) {
         this.queue = queue;
     }
 
@@ -20,7 +20,7 @@ public class Consumer implements Runnable{
                         throw new RuntimeException(e);
                     }
                 } else {
-                    Integer num = queue.removeLast();
+                    Integer num = queue.pop();
                     queue.notify();
                     System.out.println("Consumed from the queue: " + num);
                     if (num == -1)
