@@ -11,7 +11,7 @@ import java.util.List;
 public class FileDriver {
     public static void main(String[] args) throws IOException {
         List<String> urls = new ArrayList<>();
-        String path = "/Users/pavankaareddy/dinesh/concurrency.txt";
+        String path = "/Users/pavankaareddy/dinesh/dailydownload.txt";
         BufferedReader bf = new BufferedReader(new FileReader(path));
         while (bf.ready()) {
             String url = bf.readLine();
