@@ -25,6 +25,7 @@ public class PairCounter implements Callable<Integer> {
                 }
             }
         }
+        System.out.println("No of pairs: " + pairs);
         return pairs;
     }
 }
