@@ -18,9 +18,12 @@ public class Worker implements Runnable{
             try {
                 Runnable task = queue.take();
                 task.run();
-            } catch (InterruptedException e) {
+            } catch (Exception e) {
+                if (e.getMessage().equals("Exit the thread pool"))
+                    break;
                 throw new RuntimeException(e);
             }
         }
+        System.out.println("Thread " + id + " exited");
     }
 }

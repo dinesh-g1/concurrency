@@ -11,10 +11,12 @@ public class ThreadPool {
     private final int maxThreads;
     private final BlockingQueue<Runnable> queue;
     private final List<Thread> workers;
+    private boolean hasShutDown;
 
     public ThreadPool(int maxThreads) {
         workers = new ArrayList<>();
         this.maxThreads = maxThreads;
+        hasShutDown = false;
         queue = new ArrayBlockingQueue<>(10);
         for (int i = 0; i < maxThreads; i++) {
             Thread t = new Thread(new Worker(queue, i));
@@ -25,9 +27,18 @@ public class ThreadPool {
         }
     }
 
-    public FutureTask<Integer> submit(Callable<Integer> task) throws InterruptedException {
+    public synchronized FutureTask<Integer> submit(Callable<Integer> task) throws InterruptedException {
+        if (hasShutDown)
+            throw new RuntimeException("No new requests will be entertained...");
         FutureTask<Integer> fTask = new FutureTask<>(task);
         queue.put(fTask);
         return fTask;
+    }
+
+    public synchronized void shutdown() throws InterruptedException {
+        hasShutDown = true;
+        for (int q = 0; q < workers.size(); q++) {
+           queue.put(new Shutter());
+        }
     }
 }

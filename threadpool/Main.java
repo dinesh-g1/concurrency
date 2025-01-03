@@ -29,5 +29,6 @@ public class Main {
         for (FutureTask<Integer> ft : futureTasks){
             System.out.println(ft.get());
         }
+        threadPool.shutdown();
     }
 }
