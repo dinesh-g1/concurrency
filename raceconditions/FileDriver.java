@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FileDriver {
+    private static int count = 25;
     public static void main(String[] args) throws IOException {
         List<String> urls = new ArrayList<>();
         String path = "/Users/pavankaareddy/dinesh/dailydownload.txt";
@@ -42,8 +43,11 @@ public class FileDriver {
     public static void openUrls(List<String> urls) throws URISyntaxException, IOException, InterruptedException {
         Desktop desktop = Desktop.getDesktop();
         for (String url : urls) {
+            if (count == 0)
+                break;
             desktop.browse(new URI(url));
             Thread.sleep(10000);
+            count--;
         }
     }
 }

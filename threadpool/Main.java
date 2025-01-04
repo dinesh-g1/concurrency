@@ -17,13 +17,17 @@ public class Main {
         Random random = new Random();
         int qty = 10000;
         for (int i = 0; i < 20; i++) {
-            List<Integer> numbers = new ArrayList<>();
-            for (int j = 0; j < qty; j++) {
-                numbers.add(random.nextInt(10, 100));
+            if (i % 3 == 0) {
+                threadPool.submit(new ThreadDier());
+            } else {
+                List<Integer> numbers = new ArrayList<>();
+                for (int j = 0; j < qty; j++) {
+                    numbers.add(random.nextInt(10, 100));
+                }
+                int k = random.nextInt(10, 100);
+                FutureTask<Integer> fTask = threadPool.submit(new PairCounter(numbers, k));
+                futureTasks.add(fTask);
             }
-            int k = random.nextInt(10, 100);
-            FutureTask<Integer> fTask = threadPool.submit(new PairCounter(numbers, k));
-            futureTasks.add(fTask);
         }
 
         for (FutureTask<Integer> ft : futureTasks){
